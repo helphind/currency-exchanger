@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif, monospace;
+    color: #000;
 }
 
 .d-flex {
@@ -8,4 +11,8 @@ body {
 
 .flex-right {
     margin-left: auto;
+}
+
+.container {
+    padding-top: 70px;
 }
