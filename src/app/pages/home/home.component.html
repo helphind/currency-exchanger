@@ -1,0 +1,6 @@
+<app-converter-panel></app-converter-panel>
+<div class="currencies-list">
+    <div class="currency-item" *ngFor="let currency of popularCurrencies">
+        <app-currency-card [currencyInfo]="currency"></app-currency-card>
+    </div>
+</div>
