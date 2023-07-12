@@ -1,0 +1,25 @@
+.converter-container {
+    padding: 15px;
+    border: 1px solid #969090;
+    margin: 15px 10px;
+}
+
+.currency-input-section,
+.currency-inputs {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+
+}
+
+.currency-result-actions {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.currency-section {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}

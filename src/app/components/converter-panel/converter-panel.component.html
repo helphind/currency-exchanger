@@ -1,3 +1,50 @@
-<div class="card">
-    <button type="button" (click)="convertCurrency()">Convert</button>
+<div class="converter-container card" [formGroup]="converterForm">
+    <div class="currency-inputs">
+        <div class="form-control">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" min="0" formControlName="amount">
+        </div>
+
+        <div class="currency-section">
+            <div class="currency-input-section d-flex">
+                <div class="form-control">
+                    <label for="fromCurrency">From Currency</label>
+                    <select id="fromCurrency" formControlName="currencyFrom">
+                        <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
+                            {{currency.currencyName}}
+                        </option>
+                    </select>
+                </div>
+
+                <button type="button" [disabled]="converterForm.invalid" (click)="swapCurrency()">Swap Currency</button>
+
+                <div class="form-control">
+                    <label for="toCurrency">To Currency</label>
+                    <select id="toCurrency" formControlName="currencyTo">
+                        <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
+                            {{currency.currencyName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="button" [disabled]="converterForm.invalid" (click)="convertCurrency()">Convert</button>
+        </div>
+
+
+    </div>
+
+
+    <div class="currency-result-actions">
+        <div class="result">
+            <div class="">{{convertedCurrency}}</div>
+        </div>
+
+        <div class="result">
+            <label>Converted Result</label>
+            <div class="">{{convertedCurrency}}</div>
+        </div>
+
+        <button type="button" [disabled]="converterForm.invalid" (click)="gotoDetails()">More Details</button>
+    </div>
 </div>
