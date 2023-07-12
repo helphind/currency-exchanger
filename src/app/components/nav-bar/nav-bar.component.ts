@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Page } from "../../models/page";
+import { PageItem } from "../../models/pageItem";
 
 @Component({
     selector: 'app-nav-bar',
@@ -8,14 +8,14 @@ import { Page } from "../../models/page";
 })
 export class NavBarComponent implements OnInit {
 
-    pages: Page[] = [
+    pages: PageItem[] = [
         {
             title: 'EUR-USD Details',
-            link: '/EUR-USD-Details',
+            link: 'currency-details/EUR/USD',
         },
         {
             title: 'EUR-GBP Details',
-            link: '/EUR-GBP Details',
+            link: 'currency-details/EUR/GBP',
         }
     ]
 
