@@ -11,6 +11,7 @@ import { ConverterPanelComponent } from './components/converter-panel/converter-
 import { CurrencyCardComponent } from './components/currency-card/currency-card.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { HistoricalInfoComponent } from './components/historical-info/historical-info.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from "@angular/forms";
         HomeComponent,
         CurrencyDetailsComponent,
         ConverterPanelComponent,
-        CurrencyCardComponent
+        CurrencyCardComponent,
+        HistoricalInfoComponent
     ],
     imports: [
         BrowserModule,

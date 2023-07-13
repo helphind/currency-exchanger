@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from "../../services/currency.service";
 import { PopularCurrencyRequest } from "../../models/popular-currency.request";
-import { CurrencyItem } from "../../models/currencyItem";
+import { CurrencyItem } from "../../models/currency-item";
+import { AppConstant } from "../../constants/app.constant";
 
 @Component({
     selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
 
     baseCurrencyCode: string = 'EUR';
 
-    popularCurrencyCode: string = 'GBP, JPY, USD, AUD, CAD, CHF, CNH, HKD, NZD, CNY, SGD ';
+    popularCurrencyCode: string = AppConstant.POPULAR_CURRENCIES;
     // popularCurrencies: CurrencyItem[] = []
     popularCurrencies: CurrencyItem[] =  [
         {
@@ -69,18 +70,6 @@ export class HomeComponent implements OnInit {
             next: (currenciesResponse) => {
 
                 const { rates } = currenciesResponse
-                //  {
-                //         "GBP": 0.856608,
-                //         "JPY": 154.053612,
-                //         "USD": 1.112558,
-                //         "AUD": 1.638753,
-                //         "CAD": 1.46693,
-                //         "CHF": 0.966168,
-                //         "HKD": 8.707322,
-                //         "NZD": 1.766286,
-                //         "CNY": 7.973036,
-                //         "SGD": 1.479596
-                //     }
 
                 this.popularCurrencies = this.formatToArray(rates)
             },

@@ -1,1 +1,12 @@
-<p>curency-details works!</p>
+<div class="currency-details">
+    <div class="currency-info">
+        <span class="currency-code">{{currency.currencyCode}}</span>
+        <span class="currency-name">{{currency.currencyName}}</span>
+    </div>
+
+    <div class="action-button">
+        <button type="button" (click)="backToHome()">Back to Home</button>
+    </div>
+</div>
+<app-converter-panel></app-converter-panel>
+<app-historical-info></app-historical-info>
