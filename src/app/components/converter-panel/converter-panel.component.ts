@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CurrencyConvertRequest } from "../../models/currency-convert.request";
 import { CurrencyService } from "../../services/currency.service";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { CurrencyOption } from "../../models/currency-option";
 import { debounceTime, Subscription, take } from "rxjs";
 import { Router } from "@angular/router";
@@ -28,14 +28,14 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
     exchangeResult: number = 0; // || 3724.305775;
     errorMessage = '';
 
-    converterForm: FormGroup = this.fb.group({
+    converterForm: UntypedFormGroup = this.fb.group({
         amount: [null, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
         currencyFrom: [{ value: this.defaultFromCurrency, disabled: true }, [Validators.required]],
         currencyTo: [{ value: this.defaultToCurrency, disabled: true }, [Validators.required]],
     })
 
     constructor(private currencyService: CurrencyService,
-                private fb: FormBuilder,
+                private fb: UntypedFormBuilder,
                 private router: Router,
                 private sharedService: SharedService) {
     }
@@ -149,8 +149,8 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
     }
 
     swapCurrency() {
-        const currencyFromCtrl = this.converterForm.get('currencyFrom') as FormControl;
-        const currencyToCtrl = this.converterForm.get('currencyTo') as FormControl;
+        const currencyFromCtrl = this.converterForm.get('currencyFrom') as UntypedFormControl;
+        const currencyToCtrl = this.converterForm.get('currencyTo') as UntypedFormControl;
 
         if (!currencyFromCtrl || !currencyToCtrl) {
             console.log('from control not set')
