@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrencyItem } from "../../models/currencyItem";
+import { CurrencyItem } from "../../models/currency-item";
 
 @Component({
     selector: 'app-currency-card',

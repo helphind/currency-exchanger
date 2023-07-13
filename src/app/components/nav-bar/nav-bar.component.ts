@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageItem } from "../../models/pageItem";
+import { PageItem } from "../../models/page-item";
 
 @Component({
     selector: 'app-nav-bar',
