@@ -1,3 +1,5 @@
-<div class="historical-info">
-    Historical info
+<div class="historical-info" *ngIf="showChart">
+    <div class="section-title">Historical Info</div>
+    {{toCurrency}}
+    <div echarts [options]="options" class="demo-chart"></div>
 </div>

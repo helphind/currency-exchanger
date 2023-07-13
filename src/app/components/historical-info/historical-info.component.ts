@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CurrencyService } from "../../services/currency.service";
 import { HistoryRequest } from "../../models/history.request";
 import { HistoricalDataConstant } from "../../constants/historical-data.constant";
+import { EChartsOption } from "echarts";
 
 @Component({
     selector: 'app-historical-info',
@@ -14,7 +15,8 @@ export class HistoricalInfoComponent implements OnInit {
     @Input() toCurrency = ''
 
     historicalResponse = HistoricalDataConstant;
-    historicalData = [];
+    options!: EChartsOption;
+    showChart = false
 
     constructor(private currencyService: CurrencyService) {
     }
@@ -40,10 +42,9 @@ export class HistoricalInfoComponent implements OnInit {
             end_date: toDate,
         }
 
-        console.log('requestParams', requestParams)
-
         this.currencyService.getHistoricalInfo(requestParams).subscribe( res => {
             console.log('res', res)
+            // this.historicalResponse = res;
             this.formatHistoricalData();
         })
 
@@ -69,10 +70,44 @@ export class HistoricalInfoComponent implements OnInit {
         const lastDays = this.getLastDates(availableDates);
 
         lastDays.map(lastDate => {
-            historicalInfo[lastDate] = rates[lastDate][this.toCurrency]
+            const keyName = this.getKeyName(lastDate);
+            console.log('key', keyName)
+            historicalInfo[keyName] = rates[lastDate][this.toCurrency].toFixed(2)
         })
 
-        console.log('historicalInfo', historicalInfo)
+        setTimeout(() => {
+            this.setChartOptions(historicalInfo);
+            this.showChart = true
+        }, 100)
+
+    }
+
+    private setChartOptions(historicalInfo: any) {
+        this.options = {
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: Object.keys(historicalInfo),
+                show: true
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                }
+            ],
+            series: [
+                {
+                    name: `${this.fromCurrency} - ${this.toCurrency}`,
+                    type: 'bar',
+                    data: Object.values(historicalInfo),
+                }
+            ]
+        };
+    }
+
+    private getKeyName(lastDate: string) {
+        const dateInfo =  new Date(lastDate);
+        return dateInfo.toLocaleString('default', { month: 'long' });
     }
 
     private getLastDates(availableDates: string[]) {

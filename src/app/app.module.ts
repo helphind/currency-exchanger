@@ -12,6 +12,7 @@ import { CurrencyCardComponent } from './components/currency-card/currency-card.
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HistoricalInfoComponent } from './components/historical-info/historical-info.component';
+import { NgxEchartsModule } from "ngx-echarts";
 
 
 @NgModule({
@@ -29,7 +30,10 @@ import { HistoricalInfoComponent } from './components/historical-info/historical
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]
