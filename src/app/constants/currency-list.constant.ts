@@ -2,52 +2,84 @@ import { CurrencyOption } from "../models/currency-option";
 
 export const CurrencyListConstant: CurrencyOption[] = [
     {
-        currencyName: 'EURO',
+        currencyName: 'Euro',
         currencyCode: 'EUR',
     },
     {
-        currencyName: 'GBP',
+        currencyName: 'British Pound',
         currencyCode: 'GBP',
     },
     {
-        currencyName: 'JPY',
+        currencyName: 'Japanese Yen',
         currencyCode: 'JPY',
     },
     {
-        currencyName: 'USD',
+        currencyName: 'United States Dollar',
         currencyCode: 'USD',
     },
     {
-        currencyName: 'AUD',
+        currencyName: 'Australian Dollar',
         currencyCode: 'AUD',
     },
     {
-        currencyName: 'CAD',
+        currencyName: 'Canadian Dollar',
         currencyCode: 'CAD',
     },
     {
-        currencyName: 'CHF',
+        currencyName: 'Swiss Franc',
         currencyCode: 'CHF',
     },
     {
-        currencyName: 'CNH',
-        currencyCode: 'CNH',
-    },
-    {
-        currencyName: 'HKD',
+        currencyName: 'Hong Kong Dollar',
         currencyCode: 'HKD',
     },
     {
-        currencyName: 'NZD',
+        currencyName: 'New Zealand Dollar',
         currencyCode: 'NZD',
     },
     {
-        currencyName: 'CNY',
+        currencyName: 'Chinese Yuan',
         currencyCode: 'CNY',
     },
     {
-        currencyName: 'SGD',
+        currencyName: 'Singapore Dollar',
         currencyCode: 'SGD',
     },
+    {
+        currencyName: 'South African Rand',
+        currencyCode: 'ZAR',
+    },
+    {
+        currencyName: 'Brazilian Real',
+        currencyCode: 'BRL',
+    },
+    {
+        currencyName: 'Indian Rupee',
+        currencyCode: 'INR',
+    },
+    {
+        currencyName: 'Russian Ruble',
+        currencyCode: 'RUB',
+    },
+    {
+        currencyName: 'Mexican Peso',
+        currencyCode: 'MXN',
+    },
+    {
+        currencyName: 'Swedish Krona',
+        currencyCode: 'SEK',
+    },
+    {
+        currencyName: 'Norwegian Krone',
+        currencyCode: 'NOK',
+    },
+    {
+        currencyName: 'Danish Krone',
+        currencyCode: 'DKK',
+    },
+    {
+        currencyName: 'United Arab Emirates Dirham',
+        currencyCode: 'AED',
+    }
 ]
 

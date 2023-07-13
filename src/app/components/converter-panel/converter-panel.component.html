@@ -20,7 +20,7 @@
                 <label for="fromCurrency">From Currency</label>
                 <select id="fromCurrency" formControlName="currencyFrom">
                     <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
-                        {{currency.currencyName}}
+                        {{currency.currencyName}} ({{currency.currencyCode}})
                     </option>
                 </select>
             </div>
@@ -33,7 +33,7 @@
                 <label for="toCurrency">To Currency</label>
                 <select id="toCurrency" formControlName="currencyTo">
                     <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
-                        {{currency.currencyName}}
+                        {{currency.currencyName}} ({{currency.currencyCode}})
                     </option>
                 </select>
             </div>
