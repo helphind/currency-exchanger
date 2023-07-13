@@ -14,51 +14,13 @@ export class HomeComponent implements OnInit {
     baseCurrencyCode: string = 'EUR';
 
     popularCurrencyCode: string = AppConstant.POPULAR_CURRENCIES;
-    // popularCurrencies: CurrencyItem[] = []
-    popularCurrencies: CurrencyItem[] =  [
-        {
-            "currency": "GBP",
-            "value": 0.856654
-        },
-        {
-            "currency": "JPY",
-            "value": 154.009313
-        },
-        {
-            "currency": "EUR",
-            "value": 1
-        },
-        {
-            "currency": "GBP",
-            "value": 0.856654
-        },
-        {
-            "currency": "JPY",
-            "value": 154.009313
-        },
-        {
-            "currency": "EUR",
-            "value": 1
-        },
-        {
-            "currency": "GBP",
-            "value": 0.856654
-        },
-        {
-            "currency": "JPY",
-            "value": 154.009313
-        },
-        {
-            "currency": "EUR",
-            "value": 1
-        }
-    ]
+    popularCurrencies: CurrencyItem[] = []
 
     constructor(private currencyService: CurrencyService) {
     }
 
     ngOnInit(): void {
-        // this.getPopularCurrency();
+        this.getPopularCurrency();
     }
 
     getPopularCurrency() {

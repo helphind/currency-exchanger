@@ -24,8 +24,8 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
     currencyList: CurrencyOption[] = CurrencyListConstant;
 
-    exchangeRate: number = 0 || 148.972231;
-    exchangeResult: number = 0 || 3724.305775;
+    exchangeRate: number = 0; //  || 148.972231;
+    exchangeResult: number = 0; // || 3724.305775;
     errorMessage = '';
 
     converterForm: FormGroup = this.fb.group({
@@ -130,16 +130,6 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
         }
         this.currencyService.convertCurrencies(reqPayload).subscribe({
             next: (convertResponse: CurrencyConvertResponse) => {
-                convertResponse = {
-                    "success": true,
-                    "info": {
-                        "timestamp": 1519328414,
-                        "rate": 148.972231
-                    },
-                    "historical": "",
-                    "date": "2018-02-22",
-                    "result": 3724.305775
-                }
 
                 const { success, result, info } = convertResponse
 
