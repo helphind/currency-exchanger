@@ -3,7 +3,7 @@ import { CurrencyConvertRequest } from "../../models/currency-convert.request";
 import { CurrencyService } from "../../services/currency.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { CurrencyOption } from "../../models/currency-option";
-import { Subscription } from "rxjs";
+import { debounceTime, Subscription } from "rxjs";
 import { Router } from "@angular/router";
 import { CurrencyListConstant } from "../../constants/currency-list.constant";
 import { CurrencyConvertResponse } from "../../models/currency-convert.response";
@@ -17,6 +17,7 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
     @Input() defaultFromCurrency = 'EUR'
     @Input() defaultToCurrency = 'USD'
+    @Input() isDetails = false;
     private subscriptions = new Subscription();
 
     currencyList: CurrencyOption[] = CurrencyListConstant;
@@ -36,11 +37,13 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.handleValueChanged();
+        this.handleFromCurrency();
+        console.log('isDetails', this.isDetails)
     }
 
     private handleValueChanged() {
         this.subscriptions.add(
-            this.converterForm.get('amount')?.valueChanges.subscribe(res => {
+            this.converterForm.get('amount')?.valueChanges.pipe(debounceTime(200)).subscribe(res => {
                 console.log('res', res)
                 if (!res) {
                     this.disableFormFields();
@@ -52,15 +55,34 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
         )
     }
 
+    private handleFromCurrency() {
+
+        const amount = this.converterForm.get('amount')?.value
+        if(this.isDetails || !amount) {
+            this.disableCurrencyFrom();
+            return;
+        }
+        this.enableCurrencyFrom();
+    }
+
     private disableFormFields() {
-        this.converterForm.get('currencyFrom')?.disable();
+        this.disableCurrencyFrom();
         this.converterForm.get('currencyTo')?.disable();
     }
 
     private enableFormFields() {
-        this.converterForm.get('currencyFrom')?.enable();
+        this.handleFromCurrency();
         this.converterForm.get('currencyTo')?.enable();
     }
+
+    private disableCurrencyFrom() {
+        this.converterForm.get('currencyFrom')?.disable();
+    }
+
+    private enableCurrencyFrom() {
+        this.converterForm.get('currencyFrom')?.enable();
+    }
+
 
     convertCurrency() {
 

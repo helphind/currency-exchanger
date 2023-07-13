@@ -5,8 +5,8 @@
     </div>
 
     <div class="action-button">
-        <button type="button" (click)="backToHome()">Back to Home</button>
+        <button type="button" class="btn primary-btn" (click)="backToHome()">Back to Home</button>
     </div>
 </div>
-<app-converter-panel></app-converter-panel>
+<app-converter-panel [isDetails]="true"></app-converter-panel>
 <app-historical-info></app-historical-info>
