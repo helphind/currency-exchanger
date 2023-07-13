@@ -1,5 +1,4 @@
-$primaryColor: #0b518f;
-$secondaryColor: #0b518f;
+@import 'variable';
 
 body {
     margin: 0;
@@ -22,4 +21,41 @@ body {
 
 label {
     padding-right: 10px;
+    margin-bottom: 5px;
+}
+
+.btn {
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background-color: $primaryColor;
+    color: #fff;
+
+    &:disabled{
+        opacity: 0.8;
+    }
+}
+
+input, select {
+    padding: 6px;
+}
+
+.d-flex-d-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.col {
+    flex-grow: 1;
+}
+
+.col-2 {
+    flex-grow: 2;
+}
+
+.header {
+    background: $primaryColor;
 }

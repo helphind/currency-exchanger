@@ -1,49 +1,62 @@
 <div class="converter-container card" [formGroup]="converterForm">
-    <div class="currency-inputs">
+
+    <div class="currency-left d-flex-d-col">
         <div class="form-control">
             <label for="amount">Amount</label>
             <input type="number" id="amount" min="0" formControlName="amount">
         </div>
 
-        <div class="currency-section">
-            <div class="currency-input-section d-flex">
-                <div class="form-control">
-                    <label for="fromCurrency">From Currency</label>
-                    <select id="fromCurrency" formControlName="currencyFrom">
-                        <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
-                            {{currency.currencyName}}
-                        </option>
-                    </select>
-                </div>
+        <div class="d-flex">
+            <div>1.00 {{converterForm.get('currencyFrom')?.value}}</div>
+            <div class="currency-divider">=</div>
+            <div>{{exchangeRate | number: '1.0-2' }} {{converterForm.get('currencyTo')?.value}}</div>
+        </div>
+    </div>
 
-                <button type="button" [disabled]="converterForm.invalid" (click)="swapCurrency()">Swap Currency</button>
+    <div class="currency-right d-flex-d-col">
 
-                <div class="form-control">
-                    <label for="toCurrency">To Currency</label>
-                    <select id="toCurrency" formControlName="currencyTo">
-                        <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
-                            {{currency.currencyName}}
-                        </option>
-                    </select>
-                </div>
+        <div class="currency-input-section">
+            <div class="form-control col">
+                <label for="fromCurrency">From Currency</label>
+                <select id="fromCurrency" formControlName="currencyFrom">
+                    <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
+                        {{currency.currencyName}}
+                    </option>
+                </select>
             </div>
 
-            <button type="button" [disabled]="converterForm.invalid" (click)="convertCurrency()">Convert</button>
+            <button type="button" class="btn swap-btn" [disabled]="converterForm.invalid" (click)="swapCurrency()">
+                Swap Currency
+            </button>
+
+            <div class="form-control col">
+                <label for="toCurrency">To Currency</label>
+                <select id="toCurrency" formControlName="currencyTo">
+                    <option *ngFor="let currency of currencyList" [value]="currency.currencyCode">
+                        {{currency.currencyName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="currency-action">
+            <button type="button" class="btn primary-btn" [disabled]="converterForm.invalid"
+                    (click)="convertCurrency()">
+                Convert
+            </button>
             <div class="error-message" [hidden]="!errorMessage">
                 {{errorMessage}}
             </div>
         </div>
-    </div>
 
-    <div class="currency-result-actions">
-        <div class="d-flex">
-            <div>1 {{converterForm.get('currencyFrom')?.value}}</div>
-            <div class="currency-divider">=</div>
-            <div>{{exchangeRate}} {{converterForm.get('currencyTo')?.value}}</div>
+        <div class="currency-result-actions">
+            <div class="converted-result">
+                {{exchangeResult | number: '1.0-2'}} {{converterForm.get('currencyTo')?.value}}
+            </div>
+            <button type="button" [disabled]="converterForm.invalid" (click)="gotoDetails()" class="btn primary-btn">
+                More Details
+            </button>
         </div>
 
-        <div class="converted-result">{{exchangeResult}} {{converterForm.get('currencyTo')?.value}}</div>
-
-        <button type="button" [disabled]="converterForm.invalid" (click)="gotoDetails()">More Details</button>
     </div>
 </div>

@@ -21,8 +21,8 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
     currencyList: CurrencyOption[] = CurrencyListConstant;
 
-    exchangeRate: number = 0;
-    exchangeResult: number = 0;
+    exchangeRate: number = 0 || 148.972231;
+    exchangeResult: number = 0 || 3724.305775;
     errorMessage = '';
 
     converterForm: FormGroup = this.fb.group({
@@ -92,9 +92,8 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
                     return;
                 }
 
-
-                this.exchangeResult = info.rate
-                this.exchangeRate = result
+                this.exchangeRate = info.rate;
+                this.exchangeResult = result;
             },
             error: (error) => {
                 //todo handle error
