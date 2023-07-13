@@ -4,6 +4,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { CurrencyConvertRequest } from "../models/currency-convert.request";
 import { PopularCurrencyRequest } from "../models/popular-currency.request";
+import { CurrencyConvertResponse } from "../models/currency-convert.response";
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class CurrencyService {
         return this.http.get(`${this.API_BASE_URL}latest`, { params: { ...payload, access_key: this.API_KEY } })
     }
 
-    convertCurrencies(payload: CurrencyConvertRequest): Observable<any> {
-        return this.http.get(`${this.API_BASE_URL}convert`, { params: { ...payload, access_key: this.API_KEY } })
+    convertCurrencies(payload: CurrencyConvertRequest): Observable<CurrencyConvertResponse> {
+        return this.http.get<CurrencyConvertResponse>(`${this.API_BASE_URL}convert`, { params: { ...payload, access_key: this.API_KEY } })
     }
 }
