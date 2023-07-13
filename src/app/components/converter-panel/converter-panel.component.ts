@@ -3,10 +3,12 @@ import { CurrencyConvertRequest } from "../../models/currency-convert.request";
 import { CurrencyService } from "../../services/currency.service";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { CurrencyOption } from "../../models/currency-option";
-import { debounceTime, Subscription } from "rxjs";
+import { debounceTime, Subscription, take } from "rxjs";
 import { Router } from "@angular/router";
 import { CurrencyListConstant } from "../../constants/currency-list.constant";
 import { CurrencyConvertResponse } from "../../models/currency-convert.response";
+import { SharedService } from "../../services/shared.service";
+import { ExchangeInfo } from "../../models/exchnage-info";
 
 @Component({
     selector: 'app-converter-panel',
@@ -32,12 +34,16 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
         currencyTo: [{ value: this.defaultToCurrency, disabled: true }, [Validators.required]],
     })
 
-    constructor(private currencyService: CurrencyService, private fb: FormBuilder, private router: Router) {
+    constructor(private currencyService: CurrencyService,
+                private fb: FormBuilder,
+                private router: Router,
+                private sharedService: SharedService) {
     }
 
     ngOnInit(): void {
         this.handleValueChanged();
         this.handleFromCurrency();
+        this.getExistingInfo();
         console.log('isDetails', this.isDetails)
     }
 
@@ -58,7 +64,7 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
     private handleFromCurrency() {
 
         const amount = this.converterForm.get('amount')?.value
-        if(this.isDetails || !amount) {
+        if (this.isDetails || !amount) {
             this.disableCurrencyFrom();
             return;
         }
@@ -83,6 +89,35 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
         this.converterForm.get('currencyFrom')?.enable();
     }
 
+    private getExistingInfo() {
+
+        this.sharedService.getExchangeInfo().pipe(take(1)).subscribe((res: ExchangeInfo | null) => {
+            if (!res) {
+                this.resetExchangeValues();
+                return
+            }
+
+            const { currencyFrom, currencyTo, amount, currencyRate, currencyResult } = res;
+
+            if (!amount || currencyFrom != this.defaultFromCurrency || currencyTo != this.defaultToCurrency) {
+                this.resetExchangeValues();
+                return
+            }
+
+            this.converterForm.get('amount')?.patchValue(amount);
+
+            this.exchangeRate = currencyRate;
+            this.exchangeResult = currencyResult;
+
+        })
+    }
+
+    private resetExchangeValues = () => {
+        this.converterForm.get('amount')?.patchValue(null);
+        this.exchangeRate = 0;
+        this.exchangeResult = 0;
+        this.sharedService.setExchangeInfo(null)
+    }
 
     convertCurrency() {
 
@@ -108,7 +143,7 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
                 const { success, result, info } = convertResponse
 
-                if(!success) {
+                if (!success) {
                     this.errorMessage = 'Sorry, something went wrong. Please try again after some time.'
                     this.exchangeRate = 0;
                     return;
@@ -140,8 +175,14 @@ export class ConverterPanelComponent implements OnInit, OnDestroy {
 
     gotoDetails() {
         const { currencyFrom, currencyTo } = this.converterForm.value;
+        this.sharedService.setExchangeInfo({
+            ...this.converterForm.value,
+            currencyRate: this.exchangeRate,
+            currencyResult: this.exchangeResult
+        })
         this.router.navigate(['currency-details', currencyFrom, currencyTo])
     }
+
 
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe();

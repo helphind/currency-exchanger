@@ -5,6 +5,8 @@ import { Observable } from "rxjs";
 import { CurrencyConvertRequest } from "../models/currency-convert.request";
 import { PopularCurrencyRequest } from "../models/popular-currency.request";
 import { CurrencyConvertResponse } from "../models/currency-convert.response";
+import { HistoryRequest } from "../models/history.request";
+import { HistoryResponse } from "../models/history.response";
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +25,9 @@ export class CurrencyService {
 
     convertCurrencies(payload: CurrencyConvertRequest): Observable<CurrencyConvertResponse> {
         return this.http.get<CurrencyConvertResponse>(`${this.API_BASE_URL}convert`, { params: { ...payload, access_key: this.API_KEY } })
+    }
+
+    getHistoricalInfo(payload: HistoryRequest): Observable<HistoryResponse> {
+        return this.http.get<HistoryResponse>(`${this.API_BASE_URL}timeseries`, { params: { ...payload, access_key: this.API_KEY } })
     }
 }

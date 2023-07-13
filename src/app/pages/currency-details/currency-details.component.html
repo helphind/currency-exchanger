@@ -8,5 +8,10 @@
         <button type="button" class="btn primary-btn" (click)="backToHome()">Back to Home</button>
     </div>
 </div>
-<app-converter-panel [isDetails]="true"></app-converter-panel>
-<app-historical-info></app-historical-info>
+<app-converter-panel [isDetails]="true"
+                     [defaultFromCurrency]="fromCurrency"
+                     [defaultToCurrency]="toCurrency">
+</app-converter-panel>
+
+<app-historical-info [fromCurrency]="fromCurrency" [toCurrency]="toCurrency">
+</app-historical-info>
