@@ -25,9 +25,11 @@ describe('CurrencyService', () => {
     it('should make a GET request to get popular currencies', () => {
         const payload: PopularCurrencyRequest = { base: 'USD', symbols: 'EUR' };
 
-        service.getPopularCurrencies(payload).subscribe();
+        service.getPopularCurrencies(payload).subscribe(response => {
+            expect(response).toBeDefined();
+        });
 
-        const request = httpMock.expectOne(`${service.API_BASE_URL}latest?access_key=${service.API_KEY}&base=USD`);
+        const request = httpMock.expectOne(`${service.API_BASE_URL}latest?base=USD&symbols=EUR&access_key=${service.API_KEY}`);
         expect(request.request.method).toBe('GET');
     });
 
@@ -36,7 +38,7 @@ describe('CurrencyService', () => {
 
         service.convertCurrencies(payload).subscribe();
 
-        const request = httpMock.expectOne(`${service.API_BASE_URL}convert?access_key=${service.API_KEY}&from=USD&to=EUR&amount=100`);
+        const request = httpMock.expectOne(`${service.API_BASE_URL}convert?from=USD&to=EUR&amount=100&access_key=${service.API_KEY}`);
         expect(request.request.method).toBe('GET');
     });
 

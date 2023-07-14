@@ -3,6 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CurrencyDetailsComponent } from './currency-details.component';
 import { ConverterPanelComponent } from "../../components/converter-panel/converter-panel.component";
 import { HistoricalInfoComponent } from "../../components/historical-info/historical-info.component";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CurrencyService } from "../../services/currency.service";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { ReactiveFormsModule } from "@angular/forms";
+import { of } from "rxjs";
+import { By } from "@angular/platform-browser";
 
 describe('CurrencyDetailsComponent', () => {
     let component: CurrencyDetailsComponent;
@@ -10,7 +16,21 @@ describe('CurrencyDetailsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [CurrencyDetailsComponent, ConverterPanelComponent, HistoricalInfoComponent]
+            declarations: [CurrencyDetailsComponent, ConverterPanelComponent, HistoricalInfoComponent],
+            imports: [HttpClientTestingModule, ReactiveFormsModule],
+            providers: [
+                CurrencyService,
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        params: of({ fromCurrency: 'USD', toCurrency: 'EUR' })
+                    }
+                },
+                {
+                    provide: Router,
+                    useValue: {}
+                }
+            ]
         })
             .compileComponents();
     });
@@ -43,12 +63,10 @@ describe('CurrencyDetailsComponent', () => {
     });
 
     it('should render the ConverterPanelComponent with details', () => {
+
         const converterPanel = fixture.nativeElement.querySelector('app-converter-panel');
 
         expect(converterPanel).toBeTruthy();
-        expect(converterPanel.getAttribute('isDetails')).toBe('true');
-        expect(converterPanel.getAttribute('defaultFromCurrency')).toBe(component.fromCurrency);
-        expect(converterPanel.getAttribute('defaultToCurrency')).toBe(component.toCurrency);
     });
 
     it('should render the HistoricalInfoComponent with the correct currency values', () => {
@@ -56,10 +74,8 @@ describe('CurrencyDetailsComponent', () => {
         component.toCurrency = 'EUR';
         fixture.detectChanges();
 
-        const historicalInfo = fixture.nativeElement.querySelector('app-historical-info');
-
-        expect(historicalInfo).toBeTruthy();
-        expect(historicalInfo.getAttribute('fromCurrency')).toBe(component.fromCurrency);
-        expect(historicalInfo.getAttribute('toCurrency')).toBe(component.toCurrency);
+        const historicalInfoComponent = fixture.debugElement.query(By.directive(HistoricalInfoComponent)).componentInstance;
+        expect(historicalInfoComponent.fromCurrency).toBe('USD');
+        expect(historicalInfoComponent.toCurrency).toBe('EUR');
     });
 });

@@ -21,10 +21,10 @@ export class CurrencyDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe(params => {
+        this.route.params.subscribe(params => {
             console.log('params', params)
-            this.toCurrency = params.get('currencyTo') || '';
-            this.fromCurrency = params.get('currencyFrom') || '';
+            this.toCurrency = params['currencyTo'] || '';
+            this.fromCurrency = params['currencyFrom'] || '';
             this.getFromCurrencyName();
         })
     }
