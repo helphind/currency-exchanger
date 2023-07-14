@@ -73,5 +73,18 @@ label, input, select {
     justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+    .converter-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .currency-input-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 
 
