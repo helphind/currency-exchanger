@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CurrencyService } from "../../services/currency.service";
 import { HistoryRequest } from "../../models/history.request";
 import { HistoricalDataConstant } from "../../constants/historical-data.constant";
@@ -23,6 +23,8 @@ export class HistoricalInfoComponent implements OnInit {
 
     ngOnInit(): void {
         this.getHistoricalInfo()
+
+        // todo handle toCurrency changes
     }
 
     private getHistoricalInfo() {
@@ -44,7 +46,7 @@ export class HistoricalInfoComponent implements OnInit {
 
         this.currencyService.getHistoricalInfo(requestParams).subscribe( res => {
             console.log('res', res)
-            // this.historicalResponse = res;
+            this.historicalResponse = res; // comment this line to test chart with free account
             this.formatHistoricalData();
         })
 
