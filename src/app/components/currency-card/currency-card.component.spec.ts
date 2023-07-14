@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CurrencyCardComponent } from './currency-card.component';
 
+
 describe('CurrencyCardComponent', () => {
     let component: CurrencyCardComponent;
     let fixture: ComponentFixture<CurrencyCardComponent>;
@@ -24,13 +25,13 @@ describe('CurrencyCardComponent', () => {
     });
 
     it('should display the currency label and value', () => {
-        // Set the input properties
-        component.currencyInfo = {
+
+        const currencyInfo = {
             currency: 'USD',
             value: 123.45
         };
 
-        // Trigger change detection
+        component.currencyInfo = currencyInfo;
         fixture.detectChanges();
 
         // Retrieve the DOM elements

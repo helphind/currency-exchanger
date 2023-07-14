@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CurrencyItem } from "../../models/currency-item";
 
 @Component({
@@ -6,14 +6,8 @@ import { CurrencyItem } from "../../models/currency-item";
     templateUrl: './currency-card.component.html',
     styleUrls: ['./currency-card.component.scss']
 })
-export class CurrencyCardComponent implements OnInit {
+export class CurrencyCardComponent {
 
     @Input() currencyInfo!: CurrencyItem;
-
-    constructor() {
-    }
-
-    ngOnInit(): void {
-    }
 
 }
